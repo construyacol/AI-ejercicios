@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script>
+	
+	//CALCULANDO LA PENDIENTE
+	//Inicializamos variables y matrices
+	var ventas = [7000, 9000, 5000, 11000, 10000, 13000];
+	var multi=[];
+	var resul1=0;
+	var resul2=0;
+	var resul3=0;
+	var resul4=0;
+	var resul5=0;
+	var pendiente=0;
+
+	for(var i=0; i<ventas.length;i++){
+		var indice = i+1;
+
+		//1. Multiplicamos cada indice por su valor almacenado
+		multi.push(ventas[i]*indice);
+
+		//2. Sumamos los resultados de la operación anterior
+		resul1+=multi[i];
+
+		//3. Sumamos todos los valores de la matriz inicial: ventas[]
+		resul2+=ventas[i];
+
+		//4. Sumamos todos los indices de nuestra matriz
+		resul3+=indice;
+
+		//5. elevamos el valor de cada indice al cuadrado
+		resul4+=indice*indice;
+
+
+	}
+		resul5=(resul3*resul3);
+
+		console.log("Resultado1: "+resul1);
+		console.log("Resultado2: "+resul2);
+		console.log("Resultado3: "+resul3);
+		console.log("Resultado4: "+resul4);
+		console.log("Resultado5: "+resul5);
+
+		pendiente=((6*resul1)-(resul2*resul3))/((6*resul4)-resul5);
+		alert("La pendiente es: "+pendiente);
+
+
+	//CALCULANDO LA INTERSECCIÓN  DE LA LINEA
+
+	var media=0;
+	var medIndice=0;
+	var ind=1;
+	var interseccion=0;
+
+	for(var i=0; i<ventas.length; i++){
+		var indice = i+1;
+		
+		media += ventas[i];
+		medIndice+=indice/6;
+
+
+	}
+
+	media=(media/ventas.length);
+	// medIndice=(medIndice/ventas.length);
+
+
+	interseccion=media-(pendiente*medIndice);
+
+	alert("la interseccion es: "+interseccion);
+
+	//Generamos una predicción de ventas en un nuevo periodo de tiempo
+	var nuevoPeriodo=ventas.length+1;
+	var pronosticoN= interseccion+(pendiente*nuevoPeriodo);
+
+	alert(pronosticoN);
+
+</script>
+</body>
+</html>

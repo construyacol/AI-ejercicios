@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="datos"></div>
+<script>
+	
+	var datos=[0,2,4,5,8,10,10,15,38];
+	var sumaDatos = 0;
+	var cantiDatos = datos.length;
+
+	alert("La cantidad de datos en la matriz es: "+cantiDatos);
+
+	for(var i=0; i<cantiDatos;i++){
+
+		sumaDatos= sumaDatos+datos[i];
+	}
+
+		var Media = sumaDatos/cantiDatos;
+		alert('la media es: '+Media);
+		var matrizMenosMedia=[];
+
+		for(var i=0;i<cantiDatos;i++){
+			var mediaR=datos[i]-Media;
+			matrizMenosMedia.push(mediaR);
+		}
+
+		alert("Matriz con la media restada a cada dato: "+matrizMenosMedia);
+
+		var matrizCuadrado=[];
+
+
+		for(var i=0;i<matrizMenosMedia.length;i++){
+
+			var cuadrado=matrizMenosMedia[i]*matrizMenosMedia[i];
+			matrizCuadrado.push(cuadrado)
+		}
+			alert("Matriz elevando al cuadrado cada resultado: "+matrizCuadrado);
+
+			sumaDatos=0;
+			Media=0;
+		for(var i=0;i<matrizCuadrado.length;i++){
+
+			sumaDatos=sumaDatos+matrizCuadrado[i];
+
+		}
+
+		Media=sumaDatos/matrizCuadrado.length;
+		alert(Media);
+
+
+
+
+
+
+	// alert(datos);
+
+</script>
+
+</body>
+</html>
