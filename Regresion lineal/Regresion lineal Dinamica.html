@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html style="background: rgba(96, 125, 139, 0.31);">
+
+<head>
+	<title></title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<style>
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+
+td, th {
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+}
+
+/*tr:nth-child(even) {
+    background-color: rgba(221, 221, 221, 0.49);
+}*/
+
+#formulario{
+
+	position: relative;
+	background: white;
+	width: 500px;
+	height: auto;
+	padding: 20px 10px;
+	align-items: center;
+}
+
+.contenedor{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.enColumna{
+	display: flex;
+	flex-direction: column;
+}
+.centrarH{
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+.centrarV{
+	display: flex;
+	align-items: center;
+}
+.sinMargen{
+	margin: 0 !important;
+}
+#datosAdd{
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	margin:40px 0;
+}
+#predecir{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+}
+#agregalo{
+	display: none;
+}
+.seccion4{
+	margin-top: 40px;
+}
+#m2p{
+	width: 300px;
+	display: none;
+}
+
+#Hola {
+	background: rgba(0, 128, 0, 0.21) !important;
+}
+.nuevaf {
+background: rgba(255, 255, 0, 0.06);
+}
+.muestraData{
+	width: 100% !important;
+}
+</style>
+
+<div class="contenedor">
+	<div id="formulario" class="enColumna centrarH">
+	<img src="regre.png" width="300px">
+
+		<div id="titulo" class="enColumna centrarH">
+			<h1 class="sinMargen">Algoritmo de predicción</h1>
+			<h3 class="sinMargen">Regresión Lineal</h3> 
+		</div>
+
+		<div id="datosAdd">
+				<input type="number" name="" placeholder="Metro cuadrado" id="m2">
+				<input type="number" name="" placeholder="Precio Piso" id="precio">
+				<input type="submit" name="" value="Agregar datos" onclick="agregar();" id="agregalo">
+		</div>
+		<div class="muestraData">
+			<table id="tabla">		
+			  <tr>
+			    <th># Casa</th>
+			    <th>Metro 2</th>
+			    <th>Precio Casa</th>
+			  </tr>
+			  	  			  		
+			</table>
+		</div>
+		<div class="centrarH seccion4">
+
+			<input type="number" name="" placeholder="Metro Cuadrado de inmueble a predecir precio: " id="m2p">
+			<input type="submit" name="" value="Predecir" onclick="regresion(); " id="prede">
+		</div>
+
+		</div>
+		
+
+	</div>
+</div>
+
+<script>
+
+setInterval(function(){
+if ($('#m2').val()=='' || $('#precio').val()=='') {
+	$('#agregalo').css('display','none');
+	
+
+
+}else{
+	$('#agregalo').css('display','initial');
+}
+
+
+}, 50);
+
+
+
+setInterval(function(){
+if ($('#m2p').val()=='' ) {
+	$('#prede').css('display','none');
+
+
+}else{
+	$('#prede').css('display','initial');
+}
+
+
+}, 50);
+
+function agregar(){
+
+	$('#m2p').css('display','initial');
+
+	var m2 = parseInt($('#m2').val());
+	mCuadrado.push(m2);
+
+	var preci = parseInt($('#precio').val());
+	valorPiso.push(preci);
+	Ncasas = valorPiso.length;
+
+	
+	// alert("valor piso "+valorPiso+" Metro cuadrado:"+ mCuadrado+" Numero de casas: "+Ncasas);
+
+	var insertar='<tr class="nuevaf">'
+			    	+'<td>'+Ncasas+'</td>'
+			    	+'<td>'+m2+'</td>'
+			    	+'<td>'+preci+'</td>'
+			  	   +'</tr>';
+
+	
+	$('#tabla').append(insertar);
+
+	$('#precio').val('');
+	$('#m2').val('');
+
+
+}
+
+	
+
+	// var mCuadrado=[5, 15, 20, 25];
+	// var valorPiso=[375, 487, 450, 500];
+	var mCuadrado=[];
+	var valorPiso=[];
+
+	var Ncasas = valorPiso.length;
+	var preRes=[];
+	var resMS=0;
+	var sumaValorPiso=0;
+	var valor3=[];
+	var sumaMetroCuadrado=0;
+	var sumv4=0;
+	var valor5=0;
+
+function regresion(){
+
+	// alert(valorPiso.length);
+	// alert(mCuadrado);
+	// alert(valorPiso);
+
+	var nuevoMetro2=$('#m2p').val();
+	
+	// alert(valorPredecir);
+
+	for(var i=0;i<valorPiso.length;i++){
+
+		//Obtenemos valor1
+		preRes.push(valorPiso[i]*mCuadrado[i]);
+		resMS+=preRes[i];
+
+		//valor2
+		sumaValorPiso=sumaValorPiso+valorPiso[i];
+
+		//valor3
+		sumaMetroCuadrado+=mCuadrado[i];
+
+		//valor4
+		valor3.push(mCuadrado[i]*mCuadrado[i])
+		sumv4+=valor3[i];
+
+		//valor5
+		valor5=sumaMetroCuadrado*sumaMetroCuadrado;
+
+	}
+
+//Pendiente
+
+var pendiente = ((Ncasas*resMS)-(sumaValorPiso*sumaMetroCuadrado))/((Ncasas*sumv4)-valor5);
+// alert(pendiente);
+
+
+// Intersección de la linea
+
+	var inter1= sumaValorPiso/Ncasas;
+	var inter2= sumaMetroCuadrado/Ncasas;
+
+	var InterLinea=inter1-(pendiente*inter2);
+	// alert(InterLinea);
+
+//Pronostico
+var pronostico = InterLinea +(pendiente*nuevoMetro2);
+// alert(pronostico);
+
+	alert(pronostico);
+
+		var insertar='<tr id="Hola">'
+			    	+'<td>'+Ncasas+'</td>'
+			    	+'<td>'+nuevoMetro2+'</td>'
+			    	+'<td>'+pronostico+'</td>'
+			  	   +'</tr>';
+
+	
+	$('#tabla').append(insertar);
+
+}
+
+</script>
+
+</body>
+</html>
